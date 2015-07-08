@@ -9,7 +9,10 @@
   "author": "Courtney Sadusky",
   "license": "BSD-3-Clause",
   "dependencies": {
-    "async": "^1.0.0"
+    "async": "^1.3.0",
+    "body-parser": "^1.13.2",
+    "express": "^4.13.1",
+    "mongoose": "^4.0.6"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
@@ -32,6 +35,5 @@
     "type": "git",
     "url": "git@github.com:csadusky/project_4_backend.git"
   },
-
   "homepage": "git@github.com:csadusky/project_4_backend.git"
 }
