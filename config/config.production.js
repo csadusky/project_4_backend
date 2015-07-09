@@ -1,14 +1,12 @@
 var config = require('./config.global.js');
 
-// make any production-specific changes here
-
 config.env = 'production';
 config.hostname = 'https://fast-brook-4146.herokuapp.com';
-config.serverPort = process.env.PORT; // heroku is particular
+config.serverPort = process.env.PORT;
 
 config.authCallbackUrl = 'https://fast-brook-4146.herokuapp.com/';
 
-config.authStrategy = 'local'
+config.authStrategy = 'local';
 
 
 
