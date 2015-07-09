@@ -7,6 +7,7 @@ var express_session = require('express-session');
 require('dotenv').load();
 
 //connecting app to mongo database
+console.log(config.mongo.dbUrl);
 mongoose.connect(config.mongo.dbUrl);
 
 app.use(logger());
