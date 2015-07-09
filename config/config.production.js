@@ -9,10 +9,10 @@ config.authCallbackUrl = 'https://fast-brook-4146.herokuapp.com/';
 config.authStrategy = 'local';
 
 
-
+config.cookieOptions = {};
 config.cookieOptions.secure = true;
 
-
+config.mongo = {};
 config.mongo.dbUrl = process.env.DBURL;
 
 
