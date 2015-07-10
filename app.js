@@ -14,8 +14,14 @@ app.use(logger());
 //Use for authentication
 // app.use(express_session({secret:"its a secret"}));
 
+//DEPLOYMENT TEST
 app.get('/', function(request, response) {
   response.send('Hello World!');
 });
+
+//INSTAGRAM CALLBACK
+// app.get('/callback' function(request, response){
+//   response.send()
+// })
 
 module.exports = app;
