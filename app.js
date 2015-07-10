@@ -13,7 +13,7 @@ mongoose.connect(config.mongo.dbUrl);
 app.use(logger());
 //Use for authentication
 // app.use(express_session({secret:"its a secret"}));
-
+var Beach = require('/lib.beaches.js');
 //DEPLOYMENT TEST
 app.get('/', function(request, response) {
   response.send('Hello World!');
