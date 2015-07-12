@@ -28,6 +28,19 @@ app.get('/beaches', function(req, res){
   })
 });
 
+app.get('/:name', function(req, res){
+  Beach.find({
+    name:req.params.name
+  }, function(error, beach){
+    if(error){
+      console.error(error);
+      res.sendStatus (404);
+    }
+    res.json(beach);
+  });
+});
+
+
 var server = app.listen(3000, function () {
 
   var host = server.address().address;
