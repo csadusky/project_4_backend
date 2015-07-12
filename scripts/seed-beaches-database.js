@@ -1,11 +1,11 @@
 var async = require('async');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/beaches');
-var Beach = require('mongoose');
+var Beach = require('./lib/beaches.js');
 
-var removeBeaches = function(done){
-  Beach.remove({}, done);
-};
+// var removeBeaches = function(done){
+//   Beach.remove({}, done);
+// };
 
 var ogunquit = function(done){
   Beach.create({
@@ -52,7 +52,6 @@ var nantucket = function(done){
 };
 
 async.series([
-  removeBeaches,
   ogunquit,
   nantucket
   ],

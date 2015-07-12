@@ -3,7 +3,7 @@ var config = require('./config.global.js');
 
 config.env = 'development';
 config.hostname = 'localhost';
-config.serverPort = 5000;
+config.serverPort = 3000;
 
 
 config.authStrategy = 'local';
