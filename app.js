@@ -4,6 +4,8 @@ var config = require('./config');
 var mongoose = require('mongoose');
 var logger= require('morgan');
 var express_session = require('express-session');
+var bodyParser = require('body-parser');
+var jsonParser = bodyParser.json();
 require('dotenv').load();
 //connecting app to mongo database
 mongoose.connect(config.mongo.dbUrl);
@@ -28,7 +30,7 @@ app.get('/beaches', function(req, res){
   })
 });
 
-app.get('/:name', function(req, res){
+app.get('/beaches/:name', function(req, res){
   Beach.find({
     name:req.params.name
   }, function(error, beach){
@@ -37,6 +39,17 @@ app.get('/:name', function(req, res){
       res.sendStatus (404);
     }
     res.json(beach);
+  });
+});
+
+app.post('/:name', jsonParser);
+app.post('/:name', function(req,res){
+  Beach.restaurantsComment.create(req.body, function(error, comment){
+    if(error){
+      console.log(error);
+      res.sendStatus(400);
+    }
+      res.sendStatus(201);
   });
 });
 
