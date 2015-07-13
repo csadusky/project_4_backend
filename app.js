@@ -15,40 +15,40 @@ app.use(logger());
 
 //Use for authentication
 // app.use(express_session({secret:"its a secret"}));
-// var api = require('instagram-node').instagram();
+var api = require('instagram-node').instagram();
 
-// // app.configure(function() {
-// //   client_id: process.env.YOUR_CLIENT_ID,
-// //   client_secret: process.env.YOUR_CLIENT_SECRET
-// // });
-
-// api.use({
+// app.configure(function() {
 //   client_id: process.env.YOUR_CLIENT_ID,
 //   client_secret: process.env.YOUR_CLIENT_SECRET
 // });
 
-// var redirect_uri = 'https://fast-brook-4146.herokuapp.com/auth';
+api.use({
+  client_id: process.env.YOUR_CLIENT_ID,
+  client_secret: process.env.YOUR_CLIENT_SECRET
+});
 
-// authorize_user = function(req, res) {
-//   res.redirect(api.get_authorization_url(redirect_uri));
-// };
+var redirect_uri = 'https://fast-brook-4146.herokuapp.com/auth';
 
-// handleauth = function(req, res) {
-//   api.authorize_user(req.query.code, redirect_uri, function(err, result) {
-//     if (err) {
-//       console.log(err.body);
-//       res.send("Didn't work");
-//     } else {
-//       console.log('Yay! Access token is ' + result.access_token);
-//       res.send('You made it!!');
-//     }
-//   });
-// };
+authorize_user = function(req, res) {
+  res.redirect(api.get_authorization_url(redirect_uri));
+};
 
-// // This is where you would initially send users to authorize
-// app.get('/', authorize_user);
-// // This is your redirect URI
-// app.get('/auth', handleauth);
+handleauth = function(req, res) {
+  api.authorize_user(req.query.code, redirect_uri, function(err, result) {
+    if (err) {
+      console.log(err.body);
+      res.send("Didn't work");
+    } else {
+      console.log('Yay! Access token is ' + result.access_token);
+      res.send('You made it!!');
+    }
+  });
+};
+
+// This is where you would initially send users to authorize
+app.get('/', authorize_user);
+// This is your redirect URI
+app.get('/auth', handleauth);
 
 
 
