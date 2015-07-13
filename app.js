@@ -17,11 +17,6 @@ app.use(logger());
 // app.use(express_session({secret:"its a secret"}));
 var api = require('instagram-node').instagram();
 
-// app.configure(function() {
-//   client_id: process.env.YOUR_CLIENT_ID,
-//   client_secret: process.env.YOUR_CLIENT_SECRET
-// });
-
 api.use({
   client_id: process.env.YOUR_CLIENT_ID,
   client_secret: process.env.YOUR_CLIENT_SECRET
