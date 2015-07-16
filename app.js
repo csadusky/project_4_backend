@@ -92,10 +92,10 @@ app.get('/beaches/:name', function(req, res){
     if(!beach.length) {
       return res.sendStatus(404);
     }
-    if(beach[0].thumbnail) {
+    if(!beach[0].thumbnail) {
       beach[0].getPictures(api).then(function(media) {
         // insert into database
-        var thumb = media[0].images.thumbnail.url;
+        var thumb = media.images.thumbnail.url;
         beach[0].thumbnail = thumb;
         beach[0].save(function(err) {
           if(err) {
