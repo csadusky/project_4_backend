@@ -52,7 +52,7 @@ var nantucket = function(done){
 
 
 Beach.find({}, function(err, beaches) {
-  if(!beaches) {
+  if(!beaches.length || !beaches) {
     async.series([
       ogunquit,
       nantucket
