@@ -97,9 +97,11 @@ app.get('/beaches/:name', function(req, res){
         // insert into database
         var thumb = media.images.thumbnail.url;
         beach[0].thumbnail = thumb;
+        for (thumb = 0; thumb < 10; thumb++){
         beach[0].save(function(err) {
           if(err) {
             return res.sendStatus(500);
+          }
           }
           res.json(beach[0]);
         });
