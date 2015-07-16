@@ -87,17 +87,28 @@ app.get('/beaches/:name', function(req, res){
   }, function(error, beach){
     if(error){
       console.error(error);
-      res.sendStatus (404);
+      return res.sendStatus (500);
     }
-    beach[0].getPictures(api).then(function(media) {
-      res.json(media);
-    }).catch(function(err) {
-      res.json({
-        error : 'yes',
-        stack : err.stack
+    if(!beach.length) {
+      return res.sendStatus(404);
+    }
+    if(!beach[0].thumbnail) {
+      beach[0].getPictures(api).then(function(media) {
+        // insert into database
+        var thumb = media[0].images.thumbnail.url;
+        beach[0].thumbnail = thumb;
+        beach[0].save(function(err) {
+          if(err) {
+            return res.sendStatus(500);
+          }
+          res.json(beach[0]);
+        });
+      }).catch(function(err) {
+        res.json(beach[0]);
       });
-    });
-    //res.json(beach);
+    } else {
+      res.json(beach[0]);
+    }
   });
 });
 
