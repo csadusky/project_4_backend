@@ -47,12 +47,12 @@ handleauth = function(req, res) {
     } else {
       req.session.aToken = result.access_token;
 
-      if(req.socket.remoteAddr === '127.0.0.1'){
+/*      if(req.socket.remoteAddr === '127.0.0.1'){
         res.redirect('http://localhost:5000');
-      } else {
+      } else {*/
         console.log('Yay! Access token is ' + result.access_token);
         res.send('You made it!!');
-      }
+      //}
     }
   });
 };
@@ -116,7 +116,7 @@ app.post('/beaches/:name', function(req,res){
 });
 
 
-var server = app.listen(3000, function () {
+var server = app.listen(config.serverPort, function () {
 
   var host = server.address().address;
   var port = server.address().port;
