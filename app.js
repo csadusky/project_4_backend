@@ -124,7 +124,8 @@ app.get('/beaches/:name', function(req, res){
     // }
   });
 });
-
+});
+});
 app.post('/beaches/:name', jsonParser);
 app.post('/beaches/:name', function(req,res){
   console.log(req.body);
