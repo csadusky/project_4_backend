@@ -89,7 +89,7 @@ app.get('/beaches/:name', function(req, res){
       console.error(error);
       res.sendStatus (404);
     }
-    Beach.getPictures(beach, req.session.aToken);
+    Beach.getPictures(beach[0], req.session.aToken);
     res.json(beach);
   });
 });
