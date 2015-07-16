@@ -3,18 +3,29 @@ var app = express();
 var config = require('./config');
 var mongoose = require('mongoose');
 var logger= require('morgan');
-var express_session = require('express-session');
+var session = require('express-session');
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
+var cors = require('cors');
 require('dotenv').load();
 //connecting app to mongo database
 mongoose.connect(config.mongo.dbUrl);
 // mongoose.createConnection('mongodb://localhost/beaches');
 var Beach = require('./lib/beaches.js');
 app.use(logger());
-
+app.use(cors({
+  origin: '*', // change this to the front-end's domain in production
+//  methods : [''] // uncomment and fill in if using PUT, DELETE, etc. methods
+}));
 //Use for authentication
-// app.use(express_session({secret:"its a secret"}));
+app.use(session({
+  secret:"its a secret",
+  cookie : {
+    httpOnly : true,
+    secure : false
+  }//,
+  // store: new MongoStore...
+}));
 var api = require('instagram-node').instagram();
 
 api.use({
@@ -32,13 +43,21 @@ handleauth = function(req, res) {
   api.authorize_user(req.query.code, redirect_uri, function(err, result) {
     if (err) {
       console.log(err.body);
-      res.send("Didn't work");
+      res.sendStatus(401);
     } else {
-      console.log('Yay! Access token is ' + result.access_token);
-      res.send('You made it!!');
+      req.session.aToken = result.access_token;
+
+      if(req.socket.remoteAddr === '127.0.0.1'){
+        res.redirect('http://localhost:5000');
+      } else {
+        console.log('Yay! Access token is ' + result.access_token);
+        res.send('You made it!!');
+      }
     }
   });
 };
+
+
 
 // This is where you would initially send users to authorize
 app.get('/', authorize_user);
@@ -69,6 +88,7 @@ app.get('/beaches/:name', function(req, res){
       console.error(error);
       res.sendStatus (404);
     }
+    Beach.getPictures(beach, req.session.aToken);
     res.json(beach);
   });
 });
@@ -81,9 +101,9 @@ app.post('/beaches/:name', function(req,res){
       console.error(error)
     }
     beach.comments.push({
-      name: req.body.comment.name,
-      body: req.body.comment.body,
-      commentType: req.body.comment.commentType
+      name: req.body.comment_name,
+      body: req.body.comment_body,
+      commentType: req.body.comment_commentType
     });
     beach.save(function(error, beach){
       if(error){
