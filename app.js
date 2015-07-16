@@ -92,10 +92,10 @@ app.get('/beaches/:name', function(req, res){
     if(!beach.length) {
       return res.sendStatus(404);
     }
-    if(!beach[0].thumbnail) {
+    //if(!beach[0].thumbnail) {
       beach[0].getPictures(api).then(function(media) {
         // insert into database
-        var thumb = media[2].images[2].thumbnail.url;
+        var thumb = media[0].images.thumbnail.url;
         beach[0].thumbnail = thumb;
         //for (thumb = 0; thumb < 10; thumb++){
         beach[0].save(function(err) {
@@ -108,9 +108,9 @@ app.get('/beaches/:name', function(req, res){
       }).catch(function(err) {
         res.json(beach[0]);
       });
-    } else {
-      res.json(beach[0]);
-    }
+    // } else {
+    //   res.json(beach[0]);
+    //}
   });
 });
 
