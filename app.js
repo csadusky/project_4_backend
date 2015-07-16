@@ -89,7 +89,7 @@ app.get('/beaches/:name', function(req, res){
       console.error(error);
       res.sendStatus (404);
     }
-    beach[0].getPictures().then(function(media) {
+    beach[0].getPictures(api).then(function(media) {
       res.json(media);
     }).catch(function(err) {
       res.json({
