@@ -11,6 +11,7 @@ require('dotenv').load();
 //connecting app to mongo database
 mongoose.connect(config.mongo.dbUrl);
 // mongoose.createConnection('mongodb://localhost/beaches');
+require('./scripts/seed-beaches-database.js');
 var Beach = require('./lib/beaches.js');
 app.use(logger());
 app.use(cors({

@@ -1,6 +1,5 @@
 var async = require('async');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/beaches');
 var Beach = require('../lib/beaches.js');
 
 // var removeBeaches = function(done){
@@ -51,16 +50,20 @@ var nantucket = function(done){
   }, done);
 };
 
-async.series([
-  ogunquit,
-  nantucket
-  ],
 
-  function(err){
-    if(err){
-      console.error(err);
-    }
-  mongoose.disconnect();
+Beach.find({}, function(err, beaches) {
+  if(!beaches) {
+    async.series([
+      ogunquit,
+      nantucket
+      ],
+
+      function(err){
+        if(err){
+          console.error(err);
+        }
+    //  mongoose.disconnect();
+      }
+    );
   }
-);
-
+});
