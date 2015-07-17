@@ -92,17 +92,17 @@ app.get('/beaches/:name', function(req, res){
     if(!beach.length) {
       return res.sendStatus(404);
     }
-      beach[1].getPictures(api).then(function(media) {
+      beach[0].getPictures(api).then(function(media) {
         // insert into database
         var thumb = media[0].images.thumbnail.url;
-        beach[1].thumbnail = thumb;
+        beach[0].thumbnail = thumb;
         //for (thumb = 0; thumb < 10; thumb++){
-        beach[1].save(function(err) {
+        beach[0].save(function(err) {
           if(err) {
             return res.sendStatus(500);
          // }
           }
-          res.json(beach[1]);
+          res.json(beach[0]);
     // if(!beach[0].thumbnail) {
     //   beach[0].getPictures(api).then(function(media) {
     //     // insert into database

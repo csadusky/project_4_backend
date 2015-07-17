@@ -11,6 +11,7 @@ var ogunquit = function(done){
     name: 'Ogunquit',
     lat: 43.3508,
     lng: -70.7315,
+    thumbnail: "",
     comments: [{
       body: 'if you are going on the weekend, make sure you get there before 9 if you wanna be close to the beach',
       commentType: 'parking'
@@ -33,6 +34,7 @@ var nantucket = function(done){
     name: 'Nantucket',
     lat: 41.2834,
     lng: -70.0994,
+    thumbnail: "",
     comments: [{
       body: 'you gotta take the steam boat in',
       commentType: 'parking'
@@ -50,6 +52,28 @@ var nantucket = function(done){
   }, done);
 };
 
+var lucy = function(done){
+  Beach.create({
+    name: 'Lucy Vincent Beach',
+    lat: 41.33845,
+    lng: -70.72669,
+    thumbnail: "",
+    comments: [{
+      body: 'you gotta take the steam boat in',
+      commentType: 'parking'
+    },
+    {
+      name:'Boarding House',
+      body: 'very nice place to take your lady to',
+      commentType: 'restaurants'
+    },
+    {
+      body: 'shopping',
+      commentType: 'activities'
+    }]
+
+  }, done);
+};
 
 Beach.find({}, function(err, beaches) {
   if(!beaches.length || !beaches) {
