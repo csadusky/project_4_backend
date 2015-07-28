@@ -94,7 +94,6 @@ app.get('/beaches/:name', function(req, res){
     }
       beach[0].getPictures(api).then(function(media) {
         // insert into database
-        res.send(media);
         var thumb = media[0].images.thumbnail.url;
         beach[0].thumbnail = thumb;
         //for (thumb = 0; thumb < 10; thumb++){
