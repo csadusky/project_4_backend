@@ -82,6 +82,7 @@ app.get('/beaches', function(req, res){
 });
 
 app.get('/beaches/:name', function(req, res){
+  //TODO change to findOne so then dont have to do beach[0]
   Beach.find({
     name:req.params.name
   }, function(error, beach){
@@ -94,9 +95,11 @@ app.get('/beaches/:name', function(req, res){
     }
       beach[0].getPictures(api).then(function(media) {
         // insert into database
-        debugger
-        var thumb = media[1].images.thumbnail.url;
-        beach[0].thumbnail = thumb;
+        beach[0].thumbnail = [];
+        for (var thumbPic = 0; thumbPic < 10; thumbPic++){
+          var thumb = media[thumbPic].images.thumbnail.url;
+          beach[0].thumbnail.push(thumb);
+        }
         beach[0].save(function(err) {
           if(err) {
             return res.sendStatus(500);
